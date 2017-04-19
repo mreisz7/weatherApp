@@ -1,7 +1,7 @@
 // Initialize required data points
 
 // App Specific
-metric_imperial = "imperial";
+units = "I"; // (I)mperial || (M)etric
 
 // Location
 lat = 0;
@@ -22,7 +22,8 @@ is_day = -1;        // Day flag (1 = day, 0 = night)
 wind_mph = -1;      // Wind Speed (MPH)
 wind_kph = -1;      // Wind Speed (KPH)
 wind_dir = "";      // Wind Direction
-
+icon_id = 0;        // Weather Icon ID
+icon = "";          // String Representation of Icon
 
 
 
@@ -81,8 +82,134 @@ function returnWeather(weather) {
     wind_kph = weather.current.wind_kph;
     wind_dir = weather.current.wind_dir;
 
+    temp_icon = weather.current.condition.icon
 
-    $("#temperature").text("Temperature (C): " + Math.round(temp_c, 0));
-    // $("#temperature").text("Temperature (F): " + temperature);
-    $("#weather").text("Weather: " + conditions);
+    icon_id = Number(temp_icon.substring(temp_icon.length - 7, temp_icon.length - 4))
+    console.log(icon_id);
+    console.log(weather);
+
+    displayData();
+}
+
+function displayData() {
+    if (units == "I") {
+        $("#temperature").text("Temperature (F): " + Math.round(temp_f, 0));
+    } else {
+        $("#temperature").text("Temperature (C): " + Math.round(temp_c, 0));
+    }
+    chooseIcon();
+    $("#weather").text("Weather: " + conditions + " / " + icon);
+}
+
+$("#temperature").click(function() {
+    if (units == "I") {
+        units = "M";
+    } else {
+        units = "I";
+    }
+
+    displayData();
+})
+
+function chooseIcon() {
+    switch(icon_id) {
+        case 113:
+            if (is_day == 1) {
+                icon = "day-sunny";
+            } else {
+                icon = "night-clear";
+            }
+            break;
+        case 116:
+            if (is_day == 1) {
+                icon = "day-cloudy";
+            } else {
+                icon = "night-cloudy";
+            }
+            break;
+        case 119:
+            icon = "cloud";
+            break;
+        case 122:
+            icon = "cloudy";
+            break;
+        case 143:
+        case 185:
+        case 248:
+        case 260:
+            icon = "fog";
+            break;
+        case 176:
+        case 293:
+        case 299:
+        case 302:
+        case 305:
+        case 353:
+        case 356:
+            if (is_day == 1) {
+                icon = "day-rain";
+            } else {
+                icon = "night-rain";
+            }
+            break;
+        case 179:
+        case 323:
+        case 329:
+        case 335:
+        case 368:
+        case 371:
+        case 374:
+        case 377:
+            if (is_day == 1) {
+                icon = "day-snow";
+            } else {
+                icon = "night-snow";
+            }
+            break;
+        case 182:
+        case 362:
+        case 365:
+            icon = "sleet";
+            break;
+        case 200:
+        case 386:
+        case 389:
+        case 392:
+        case 395:
+            icon = "thunderstorm";
+            break;
+        case 227:
+        case 230:
+            icon = "snow-wind";
+            break;
+        case 263:
+        case 266:
+        case 296:
+            icon = "sprinkle";
+            break;
+        case 281:
+        case 284:
+        case 308:
+        case 311:
+        case 314:
+        case 359:
+            icon = "rain";
+            break;
+        case 317:
+            icon = "rain-mix";
+            break;
+        case 320:
+            if (is_day == 1) {
+                icon = "day-sleet";
+            } else {
+                icon = "night-sleet";
+            }
+            break;
+        case 326:
+        case 332:
+        case 338:
+        case 350:
+            icon = "snow";
+            break;
+    }
 }
