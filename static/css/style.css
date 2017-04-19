@@ -1,0 +1,31 @@
+@import url("https://fonts.googleapis.com/css?family=Cinzel");
+* {
+     box-sizing: border-box;
+}
+
+body {
+     background-color: #1da1f2;
+     font-family: 'Cinzel', Arial, sans-serif;
+}
+
+body h1 {
+     text-align: center;
+}
+
+body #footer #copyright {
+     position: fixed;
+     bottom: 10px;
+     left: 10px;
+     color: #fff;
+}
+
+body #footer #footer-link {
+     position: fixed;
+     bottom: 10px;
+     right: 10px;
+     color: #fff;
+}
+
+body #footer #footer-link:hover {
+     color: #fff;
+}
