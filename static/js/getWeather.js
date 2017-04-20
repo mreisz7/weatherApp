@@ -7,6 +7,7 @@ units = "I"; // (I)mperial || (M)etric
 lat = 0;
 long = 0;
 city = "";
+region = "";
 
 // Weather
 temp_f = -1;        // Temperature (F)
@@ -41,24 +42,14 @@ function returnLocation(location) {
     lat = location.loc.split(',')[0];
     long = location.loc.split(',')[1];
     city = location.city;
-    console.log("latitude: " + lat);
-    console.log("longitude: " + long);
-    $("#city").text("City: " + city);
-    $("#latitude").text("Latitude: " + lat);
-    $("#longitude").text("Longitude: " + long);
+    region = location.region;
     getWeather();
 }
 
 function getWeather() {
-// Get weather local weather based on location (https://home.openweathermap.org/api_keys)
-//     API Key: 5d5f0142b86622e00150ad7d838a1ef5
-    // app_id = "5d5f0142b86622e00150ad7d838a1ef5";
-    // units = "imperial"
-    // api_url = "https://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + long + "&units=" + units + "&APPID=" + app_id + "&callback=?";
-
+// Get weather local weather based on location (https://api.apixu.com/)
     app_id = "8b012c9e5f1f4be583004535171904";
     api_url = "https://api.apixu.com/v1/forecast.json?key=" + app_id + "&q=" + lat + "," + long + "&days=1"
-    // api_url = "https://api.apixu.com/v1/current.json?key=" + app_id + "&q=" + lat + "," + long + "&days=1"
     $.getJSON(api_url, function(response) {
         returnWeather(response);
     }, "jsonp")
@@ -67,13 +58,13 @@ function getWeather() {
 function returnWeather(weather) {
     temp_f = weather.current.temp_f;
     feelslike_f = weather.current.feelslike_f;
-    mintemp_f = weather.forecast.forecastday[0].mintemp_f;
-    maxtemp_f = weather.forecast.forecastday[0].maxtemp_f;
+    mintemp_f = weather.forecast.forecastday[0].day.mintemp_f;
+    maxtemp_f = weather.forecast.forecastday[0].day.maxtemp_f;
 
     temp_c = weather.current.temp_c;
     feelslike_c = weather.current.feelslike_c;
-    mintemp_c = weather.forecast.forecastday[0].mintemp_c;
-    maxtemp_c = weather.forecast.forecastday[0].maxtemp_c;
+    mintemp_c = weather.forecast.forecastday[0].day.mintemp_c;
+    maxtemp_c = weather.forecast.forecastday[0].day.maxtemp_c;
 
     conditions = weather.current.condition.text;
 
@@ -93,12 +84,25 @@ function returnWeather(weather) {
 
 function displayData() {
     if (units == "I") {
-        $("#temperature").text("Temperature (F): " + Math.round(temp_f, 0));
+        $("#temperature").text(Math.round(temp_f, 0) + String.fromCharCode(176));
+        $("#feels-like").text("Feels like " + Math.round(feelslike_f, 0) + String.fromCharCode(176));
+        $("#high-temp").text(Math.round(maxtemp_f, 0) + String.fromCharCode(176));
+        $("#low-temp").text(Math.round(mintemp_f, 0) + String.fromCharCode(176));
     } else {
-        $("#temperature").text("Temperature (C): " + Math.round(temp_c, 0));
+        $("#temperature").text(Math.round(temp_c, 0) + String.fromCharCode(176));
+        $("#feels-like").text("Feels like " + Math.round(feelslike_c, 0) + String.fromCharCode(176));
+        $("#high-temp").text(Math.round(maxtemp_c, 0) + String.fromCharCode(176));
+        $("#low-temp").text(Math.round(mintemp_c, 0) + String.fromCharCode(176));
     }
     chooseIcon();
-    $("#weather").text("Weather: " + conditions + " / " + icon);
+
+    $("#weather-icon").addClass("wi wi-fw wi-4x wi-" + icon);
+    $("#conditions").text(conditions);
+
+    $("#weather-header h1").text(city + ", " + region);
+
+    $("#weather-form").removeClass("hidden");
+
 }
 
 $("#temperature").click(function() {

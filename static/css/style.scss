@@ -1,6 +1,8 @@
 $background-color: #1da1f2;
+$weather-background: #fff;
+$border-color: #000;
 
-@import url('https://fonts.googleapis.com/css?family=Cinzel');
+// @import url('https://fonts.googleapis.com/css?family=Cinzel');
 
 * {
      box-sizing: border-box;
@@ -10,10 +12,118 @@ body {
      background-color: $background-color;
      font-family: 'Cinzel', Arial, sans-serif;
 
-     h1 {
-          text-align: center;
+     #weather-form {
+          display: inline-block;
+          background-color: $weather-background;
+          border: 2px solid $border-color;
+          border-radius: 15px;
+          padding: 20px;
+          position: fixed;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+
+          &.hidden {
+               visibility: hidden;
+          }
+
+          #weather-header {
+
+               h1 {
+                    text-align: center;
+               }
+
+          }
+
+          #weather-body {
+
+               #weather-temps {
+                    // height: 8em;
+                    padding: 0;
+                    margin: 0;
+
+                    #weather-condition {
+                         display: inline-block;
+                         height: 100%;
+                         border-right: 2px solid #aaa;
+                         text-align: center;
+                         padding: 10px 20px;
+                         margin: 0;
+                         vertical-align: top;
+
+                         #weather-icon {
+                              margin: 10px;
+                              line-height: 1em;
+                         }
+
+                         #conditions {
+                              display: block;
+                              font-size: 1em;
+                              color: #424242;
+                              text-align: center;
+                              margin: 0 0 10px;
+                         }
+
+                    }
+
+                    #temp-main {
+                         display: inline-block;
+                         height: 100%;
+                         text-align: center;
+                         padding: 10px 0 10px 20px;
+                         margin: 0;
+                         vertical-align: top;
+
+                         #temperature {
+                              display: block;
+                              line-height: 1em;
+                              margin: 10px;
+                              font-size: 4em;
+                              cursor: pointer;
+                         }
+
+                         #feels-like {
+                              display: block;
+                              font-size: 1em;
+                              color: #424242;
+                              text-align: center;
+                              margin: 0 0 10px;
+                         }
+
+                    }
+
+                    #range-today {
+                         display: inline-block;
+                         height: 100%;
+                         text-align: center;
+                         padding: 10px 0;
+                         margin: 0;
+                         vertical-align: top;
+
+                         #high-low {
+                              margin: 30% 10px;
+
+                              #high {
+                                   border-bottom: 2px solid #aaa;
+                                   padding: 5px;
+                                   margin: 0;
+                              }
+
+                              #low {
+                                   padding: 5px;
+                                   margin: 0;
+                              }
+
+                         }
+
+                    }
+
+               }
+
+          }
+
      }
-     
+
      #footer {
 
           #copyright {
