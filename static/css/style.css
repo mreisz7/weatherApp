@@ -1,0 +1,171 @@
+@import url("https://fonts.googleapis.com/css?family=Lato");
+* {
+     box-sizing: border-box;
+}
+
+body {
+     background-color: #1da1f2;
+     font-family: 'Lato', Arial, sans-serif;
+     color: #000;
+}
+
+body #weather-form {
+     display: inline-block;
+     background-color: #fff;
+     border: 2px solid #000;
+     border-radius: 15px;
+     padding: 20px;
+     position: fixed;
+     top: 50%;
+     left: 50%;
+     transform: translate(-50%, -50%);
+     min-width: 400px;
+}
+
+body #weather-form.hidden {
+     visibility: hidden;
+}
+
+body #weather-form #weather-header h1 {
+     text-align: center;
+     margin: 10px 0;
+}
+
+body #weather-form #unit-switch {
+     text-align: center;
+     margin-bottom: 10px;
+}
+
+body #weather-form #unit-switch #imperial,
+body #weather-form #unit-switch #metric {
+     display: inline-block;
+     margin: 5px;
+     font-size: 1em;
+     cursor: pointer;
+}
+
+body #weather-form #unit-switch #imperial.selected,
+body #weather-form #unit-switch #metric.selected {
+     color: blue;
+     font-weight: bold;
+     cursor: default;
+}
+
+body #weather-form #weather-body {
+     text-align: center;
+}
+
+body #weather-form #weather-body #weather-temps {
+     display: inline-block;
+     padding: 0;
+     margin: 0;
+}
+
+body #weather-form #weather-body #weather-temps #weather-condition {
+     display: inline-block;
+     height: 100%;
+     border-right: 2px solid #848484;
+     text-align: center;
+     padding: 10px 20px;
+     margin: 0;
+     vertical-align: top;
+}
+
+body #weather-form #weather-body #weather-temps #weather-condition #weather-icon {
+     display: block;
+     margin: 10px;
+     height: 64px;
+}
+
+body #weather-form #weather-body #weather-temps #weather-condition #conditions {
+     display: block;
+     font-size: 1em;
+     color: #000;
+     text-align: center;
+     margin: 0 0 10px;
+}
+
+body #weather-form #weather-body #weather-temps #temp-main {
+     display: inline-block;
+     height: 100%;
+     text-align: center;
+     padding: 10px 0 10px 20px;
+     margin: 0;
+     vertical-align: top;
+}
+
+body #weather-form #weather-body #weather-temps #temp-main #temperature {
+     display: block;
+     line-height: 1em;
+     height: 64px;
+     margin: 10px;
+     font-size: 64px;
+     cursor: pointer;
+}
+
+body #weather-form #weather-body #weather-temps #temp-main #feels-like {
+     display: block;
+     font-size: 1em;
+     color: #000;
+     text-align: center;
+     margin: 0 0 10px;
+}
+
+body #weather-form #weather-body #weather-temps #range-today {
+     display: inline-block;
+     height: 100%;
+     text-align: center;
+     padding: 10px 0;
+     margin: 0;
+     vertical-align: top;
+}
+
+body #weather-form #weather-body #weather-temps #range-today #high-low {
+     margin: 30% 10px;
+}
+
+body #weather-form #weather-body #weather-temps #range-today #high-low #high {
+     border-bottom: 2px solid #848484;
+     padding: 5px;
+     margin: 0;
+}
+
+body #weather-form #weather-body #weather-temps #range-today #high-low #low {
+     padding: 5px;
+     margin: 0;
+}
+
+body #weather-form #weather-footer {
+     text-align: right;
+     margin-top: 20px;
+}
+
+body #weather-form #weather-footer #wunderground-logo {
+     width: 90px;
+     height: auto;
+}
+
+body #footer {
+     position: fixed;
+     bottom: 0;
+     left: 0;
+     right: 0;
+}
+
+body #footer #copyright {
+     position: fixed;
+     bottom: 10px;
+     left: 10px;
+     color: #000;
+}
+
+body #footer #footer-link {
+     position: fixed;
+     bottom: 10px;
+     right: 10px;
+     color: #000;
+}
+
+body #footer #footer-link:hover {
+     color: #000;
+}

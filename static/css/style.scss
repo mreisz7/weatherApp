@@ -1,0 +1,195 @@
+$background-color: #1da1f2;
+$weather-background: #fff;
+$border-color: #000;
+$font-color: #000;
+$divider-color: #848484;
+
+
+@import url('https://fonts.googleapis.com/css?family=Lato');
+
+* {
+     box-sizing: border-box;
+}
+
+body {
+     background-color: $background-color;
+     font-family: 'Lato', Arial, sans-serif;
+     color: $font-color;
+
+     #weather-form {
+          display: inline-block;
+          background-color: $weather-background;
+          border: 2px solid $border-color;
+          border-radius: 15px;
+          padding: 20px;
+          position: fixed;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          min-width: 400px;
+
+          &.hidden {
+               visibility: hidden;
+          }
+
+          #weather-header {
+
+               h1 {
+                    text-align: center;
+                    margin: 10px 0;
+               }
+
+          }
+
+          #unit-switch {
+               text-align: center;
+               margin-bottom: 10px;
+
+               #imperial,
+               #metric {
+                    display: inline-block;
+                    margin: 5px;
+                    font-size: 1em;
+                    cursor: pointer;
+
+                    &.selected {
+                         color: blue;
+                         font-weight: bold;
+                         cursor: default;
+                    }
+
+               }
+
+          }
+
+          #weather-body {
+               text-align: center;
+
+
+               #weather-temps {
+                    display: inline-block;
+                    padding: 0;
+                    margin: 0;
+
+                    #weather-condition {
+                         display: inline-block;
+                         height: 100%;
+                         border-right: 2px solid $divider-color;
+                         text-align: center;
+                         padding: 10px 20px;
+                         margin: 0;
+                         vertical-align: top;
+
+                         #weather-icon {
+                              display: block;
+                              margin: 10px;
+                              height: 64px;
+                         }
+
+                         #conditions {
+                              display: block;
+                              font-size: 1em;
+                              color: $font-color;
+                              text-align: center;
+                              margin: 0 0 10px;
+                         }
+
+                    }
+
+                    #temp-main {
+                         display: inline-block;
+                         height: 100%;
+                         text-align: center;
+                         padding: 10px 0 10px 20px;
+                         margin: 0;
+                         vertical-align: top;
+
+                         #temperature {
+                              display: block;
+                              line-height: 1em;
+                              height: 64px;
+                              margin: 10px;
+                              font-size: 64px;
+                              cursor: pointer;
+                         }
+
+                         #feels-like {
+                              display: block;
+                              font-size: 1em;
+                              color: $font-color;
+                              text-align: center;
+                              margin: 0 0 10px;
+                         }
+
+                    }
+
+                    #range-today {
+                         display: inline-block;
+                         height: 100%;
+                         text-align: center;
+                         padding: 10px 0;
+                         margin: 0;
+                         vertical-align: top;
+
+                         #high-low {
+                              margin: 30% 10px;
+
+                              #high {
+                                   border-bottom: 2px solid $divider-color;
+                                   padding: 5px;
+                                   margin: 0;
+                              }
+
+                              #low {
+                                   padding: 5px;
+                                   margin: 0;
+                              }
+
+                         }
+
+                    }
+
+               }
+
+          }
+
+          #weather-footer {
+               text-align: right;
+               margin-top: 20px;
+
+               #wunderground-logo {
+                    width: 90px;
+                    height: auto;
+               }
+
+          }
+
+     }
+
+     #footer {
+          position: fixed;
+          bottom: 0;
+          left: 0;
+          right: 0;
+
+          #copyright {
+               position: fixed;
+               bottom: 10px;
+               left: 10px;
+               color: $font-color;
+          }
+
+          #footer-link {
+               position: fixed;
+               bottom: 10px;
+               right: 10px;
+               color: $font-color;
+
+               &:hover {
+                    color: $font-color;
+               }
+          }
+
+     }
+
+}
