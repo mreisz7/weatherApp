@@ -10,10 +10,6 @@
     <!-- CSS -->
     <link rel="stylesheet" href="static/css/style.css">
 
-    <!-- Weather Icons (http://erikflowers.github.io/weather-icons/) -->
-    <link rel="stylesheet" href="static/css/weather-icons.css">
-    <link rel="stylesheet" href="static/css/weather-icons-wind.css">
-
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
 
@@ -42,10 +38,14 @@
             <h1>Your Local Weather</h1>
         </div>
 
+        <div id="unit-switch">
+            <span id="imperial" class="selected">Imperial</span>|<span id="metric" class="unselected">Metric</span>
+        </div>
+
         <div id="weather-body">
             <div id="weather-temps">
                 <div id="weather-condition">
-                    <i id="weather-icon" class="wi"></i>
+                    <img src="" id="weather-icon" alt="Current Conditions" />
                     <span id="conditions"></span>
                 </div>
                 <div id="temp-main">
@@ -63,6 +63,10 @@
                     </div>
                 </div>
             </div>
+        </div>
+
+        <div id="weather-footer">
+            <img id="wunderground-logo" src="static/img/wundergroundLogo.png" alt="wunderground.com" />
         </div>
 
     </div>

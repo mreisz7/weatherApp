@@ -36,14 +36,38 @@ body {
 
                h1 {
                     text-align: center;
+                    margin: 10px 0;
+               }
+
+          }
+
+          #unit-switch {
+               text-align: center;
+               margin-bottom: 10px;
+
+               #imperial,
+               #metric {
+                    display: inline-block;
+                    margin: 5px;
+                    font-size: 1em;
+                    cursor: pointer;
+
+                    &.selected {
+                         color: blue;
+                         font-weight: bold;
+                         cursor: default;
+                    }
+
                }
 
           }
 
           #weather-body {
+               text-align: center;
+
 
                #weather-temps {
-                    // height: 8em;
+                    display: inline-block;
                     padding: 0;
                     margin: 0;
 
@@ -57,8 +81,9 @@ body {
                          vertical-align: top;
 
                          #weather-icon {
+                              display: block;
                               margin: 10px;
-                              line-height: 1em;
+                              height: 64px;
                          }
 
                          #conditions {
@@ -82,8 +107,9 @@ body {
                          #temperature {
                               display: block;
                               line-height: 1em;
+                              height: 64px;
                               margin: 10px;
-                              font-size: 4em;
+                              font-size: 64px;
                               cursor: pointer;
                          }
 
@@ -123,6 +149,17 @@ body {
 
                     }
 
+               }
+
+          }
+
+          #weather-footer {
+               text-align: right;
+               margin-top: 20px;
+
+               #wunderground-logo {
+                    width: 90px;
+                    height: auto;
                }
 
           }

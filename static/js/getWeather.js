@@ -4,8 +4,7 @@
 units = "I"; // (I)mperial || (M)etric
 
 // Location
-lat = 0;
-long = 0;
+zip = "";
 city = "";
 region = "";
 
@@ -19,11 +18,10 @@ feelslike_c = -1;   // Feels Like Temperature (C)
 mintemp_c = -1;     // Min Temperature (C)
 maxtemp_c = -1;     // Max Temperature (C)
 conditions = "";    // Current Conditions
-is_day = -1;        // Day flag (1 = day, 0 = night)
 wind_mph = -1;      // Wind Speed (MPH)
 wind_kph = -1;      // Wind Speed (KPH)
 wind_dir = "";      // Wind Direction
-icon_id = 0;        // Weather Icon ID
+icon_url = "";      // Weather Icon ID
 icon = "";          // String Representation of Icon
 
 
@@ -39,46 +37,49 @@ function getLocation() {
 };
 
 function returnLocation(location) {
-    lat = location.loc.split(',')[0];
-    long = location.loc.split(',')[1];
+    zip = location.postal;
     city = location.city;
     region = location.region;
     getWeather();
 }
 
 function getWeather() {
-// Get weather local weather based on location (https://api.apixu.com/)
-    app_id = "8b012c9e5f1f4be583004535171904";
-    api_url = "https://api.apixu.com/v1/forecast.json?key=" + app_id + "&q=" + lat + "," + long + "&days=1"
-    $.getJSON(api_url, function(response) {
+// Get weather local weather based on location (https://www.wunderground.com/weather/api/d/docs/)
+    app_id = "bbc79e56a30ffa2c";
+    conditions_url = "https://api.wunderground.com/api/" + app_id + "/conditions/q/" + zip + ".json";
+    forecast_url = "https://api.wunderground.com/api/" + app_id + "/forecast/q/" + zip + ".json";
+    $.getJSON(conditions_url, function(response) {
         returnWeather(response);
-    }, "jsonp")
+    }, "jsonp");
+    $.getJSON(forecast_url, function(response) {
+        returnForecast(response);
+    }, "jsonp");
 };
 
 function returnWeather(weather) {
-    temp_f = weather.current.temp_f;
-    feelslike_f = weather.current.feelslike_f;
-    mintemp_f = weather.forecast.forecastday[0].day.mintemp_f;
-    maxtemp_f = weather.forecast.forecastday[0].day.maxtemp_f;
+    temp_f = weather.current_observation.temp_f;
+    feelslike_f = weather.current_observation.feelslike_f;
 
-    temp_c = weather.current.temp_c;
-    feelslike_c = weather.current.feelslike_c;
-    mintemp_c = weather.forecast.forecastday[0].day.mintemp_c;
-    maxtemp_c = weather.forecast.forecastday[0].day.maxtemp_c;
+    temp_c = weather.current_observation.temp_c;
+    feelslike_c = weather.current_observation.feelslike_c;
 
-    conditions = weather.current.condition.text;
+    conditions = weather.current_observation.weather;
 
-    is_day = weather.current.is_day;
-    wind_mph = weather.current.wind_mph;
-    wind_kph = weather.current.wind_kph;
-    wind_dir = weather.current.wind_dir;
+    wind_mph = weather.current_observation.wind_mph;
+    wind_kph = weather.current_observation.wind_kph;
+    wind_dir = weather.current_observation.wind_dir;
 
-    temp_icon = weather.current.condition.icon
+    icon_url = weather.current_observation.icon_url
 
-    icon_id = Number(temp_icon.substring(temp_icon.length - 7, temp_icon.length - 4))
-    console.log(icon_id);
-    console.log(weather);
+    displayData();
+}
 
+function returnForecast(forecast) {
+    maxtemp_f = forecast.forecast.simpleforecast.forecastday[0].high.fahrenheit;
+    mintemp_f = forecast.forecast.simpleforecast.forecastday[0].low.fahrenheit;
+
+    maxtemp_c = forecast.forecast.simpleforecast.forecastday[0].high.celsius;
+    mintemp_c = forecast.forecast.simpleforecast.forecastday[0].low.celsius;
     displayData();
 }
 
@@ -94,9 +95,10 @@ function displayData() {
         $("#high-temp").text(Math.round(maxtemp_c, 0) + String.fromCharCode(176));
         $("#low-temp").text(Math.round(mintemp_c, 0) + String.fromCharCode(176));
     }
-    chooseIcon();
+    // chooseIcon();
 
-    $("#weather-icon").addClass("wi wi-fw wi-4x wi-" + icon);
+    // $("#weather-icon").addClass("wi wi-fw wi-4x wi-" + icon);
+    $("#weather-icon").attr("src", icon_url.replace("/k/", "/i/"));
     $("#conditions").text(conditions);
 
     $("#weather-header h1").text(city + ", " + region);
@@ -105,115 +107,24 @@ function displayData() {
 
 }
 
-$("#temperature").click(function() {
-    if (units == "I") {
-        units = "M";
-    } else {
+$("#imperial").click(function() {
+    if (units == "M") {
         units = "I";
+        switchUnits();
+        displayData();
     }
-
-    displayData();
 })
 
-function chooseIcon() {
-    switch(icon_id) {
-        case 113:
-            if (is_day == 1) {
-                icon = "day-sunny";
-            } else {
-                icon = "night-clear";
-            }
-            break;
-        case 116:
-            if (is_day == 1) {
-                icon = "day-cloudy";
-            } else {
-                icon = "night-cloudy";
-            }
-            break;
-        case 119:
-            icon = "cloud";
-            break;
-        case 122:
-            icon = "cloudy";
-            break;
-        case 143:
-        case 185:
-        case 248:
-        case 260:
-            icon = "fog";
-            break;
-        case 176:
-        case 293:
-        case 299:
-        case 302:
-        case 305:
-        case 353:
-        case 356:
-            if (is_day == 1) {
-                icon = "day-rain";
-            } else {
-                icon = "night-rain";
-            }
-            break;
-        case 179:
-        case 323:
-        case 329:
-        case 335:
-        case 368:
-        case 371:
-        case 374:
-        case 377:
-            if (is_day == 1) {
-                icon = "day-snow";
-            } else {
-                icon = "night-snow";
-            }
-            break;
-        case 182:
-        case 362:
-        case 365:
-            icon = "sleet";
-            break;
-        case 200:
-        case 386:
-        case 389:
-        case 392:
-        case 395:
-            icon = "thunderstorm";
-            break;
-        case 227:
-        case 230:
-            icon = "snow-wind";
-            break;
-        case 263:
-        case 266:
-        case 296:
-            icon = "sprinkle";
-            break;
-        case 281:
-        case 284:
-        case 308:
-        case 311:
-        case 314:
-        case 359:
-            icon = "rain";
-            break;
-        case 317:
-            icon = "rain-mix";
-            break;
-        case 320:
-            if (is_day == 1) {
-                icon = "day-sleet";
-            } else {
-                icon = "night-sleet";
-            }
-            break;
-        case 326:
-        case 332:
-        case 338:
-        case 350:
-            icon = "snow";
-            break;
+
+$("#metric").click(function() {
+    if (units == "I") {
+        units = "M";
+        switchUnits();
+        displayData();
     }
+})
+
+function switchUnits() {
+    $("#imperial").toggleClass("selected unselected");
+    $("#metric").toggleClass("selected unselected");
 }
